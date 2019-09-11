@@ -13,8 +13,10 @@ $ npm install -g yarn
 # install node modules
 $ yarn install
 
-# BOOT this app with env below
-# local, develop, staging, production
+# BOOT this app in local env
+$ yarn dev
+
+# BOOT this app in env(develop, staging, production)
 $ yarn start:develop
 
 # STOP this app
