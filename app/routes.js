@@ -16,7 +16,7 @@ router.get('/get', getController)
 router.post('/post', postController)
 
 // update
-router.patch('/update', patchController)
+router.patch('/patch', patchController)
 
 // delete
 router.delete('/delete', deleteController)
