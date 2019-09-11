@@ -1,0 +1,47 @@
+{
+  "root": true,
+  "env": {
+    "es6": true,
+    "node": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2018
+  },
+  "extends": [
+    "eslint:recommended",
+    "google",
+    "plugin:prettier/recommended"
+  ],
+  "plugins": ["prettier", "import"],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [
+          ".js"
+        ]
+      }
+    }
+  },
+  "rules": {
+    "semi": "off",
+    "comma-dangle": "off",
+    "func-names": "off",
+    "max-len": "off",
+    "no-console": "off",
+    "no-debugger": "off",
+    "no-invalid-this": "off",
+    "no-extend-native": "off",
+    "new-cap": "off",
+    "require-jsdoc": ["error", {
+        "require": {
+            "FunctionDeclaration": true,
+            "MethodDefinition": false,
+            "ClassDeclaration": false,
+            "ArrowFunctionExpression": false,
+            "FunctionExpression": false
+        }
+    }],
+    "import/order": "error",
+    "import/extensions": ["error", "never"]
+  }
+}

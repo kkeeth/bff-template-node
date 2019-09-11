@@ -5,8 +5,7 @@ const path = require('path')
 const port = process.env.PORT || '3000'
 const clusterNum = require('os').cpus().length * 2
 const app = require('./app')
-require('dotenv')
-  .config({ path: path.resolve(process.cwd(), `envs/.env.${process.env.DOT_ENV}`) })
+require('dotenv').config({ path: path.resolve(process.cwd(), `envs/.env.${process.env.DOT_ENV}`) })
 
 /**
  * Event listener for HTTP server "error" event.
