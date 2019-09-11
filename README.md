@@ -1,6 +1,6 @@
 # BFF Template Node
 
-by using [node.js](https://nodejs.org/en/)([express](https://expressjs.com/))
+This repository is a bff template by using [node.js](https://nodejs.org/en/)([express](https://expressjs.com/))
 
 # Usage
 
