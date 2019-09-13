@@ -14,7 +14,6 @@ module.exports.decrypt = (text) => {
     let token = decipher.update(text, 'hex', 'utf8')
     token += decipher.final('utf8')
     return token
-
   } catch (err) {
     debug(err)
     throw new Error(err)

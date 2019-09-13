@@ -23,7 +23,5 @@ module.exports.logErrors = (err, req, res, next) => {
 
 // errorHandler with statusCode and response body as JSON format
 module.exports.errorHandler = (err, req, res, next) => {
-  res
-    .status(err.statusCode || 500)
-    .send({ err: err.message })
+  res.status(err.statusCode || 500).send({ err: err.message })
 }
