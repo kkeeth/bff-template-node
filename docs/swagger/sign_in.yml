@@ -1,0 +1,124 @@
+openapi: 3.0.0
+# Added by API Auto Mocking Plugin
+servers:
+  - description: environment for localhost
+    url: http://localhost:3000/api/v1
+  - description: environment for deevelopment server
+    url: https://example.com/api/v1
+
+info:
+  description: Sign-in に関する各エンドポイント定義
+  version: "v1"
+  title: Sign-in API
+  contact:
+    email: zensin0082@gmail.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: sign-in
+
+paths:
+  /get_access_token:
+    get:
+      summary: get access token(encrypted)
+      description: |
+        the access token required when access to all of endpoints
+      tags:
+        - access-token
+      responses:
+        '200':
+          $ref: '#/components/responses/AccessTokenResponse'
+        '400':
+          description: bad input parameter
+        '401':
+          description: unauthorized
+
+  /sign_in:
+    post:
+      summary: Sign-in API
+      description: |
+        the endpoint for sign-in
+      tags:
+        - sign-in
+      parameters:
+        - $ref: '#/components/parameters/Authorization'
+      requestBody:
+        $ref: '#/components/requestBodies/SignInRequestBody'
+      responses:
+        '200':
+          $ref: '#/components/responses/SignInResponse'
+        '400':
+          description: bad input parameter
+        '401':
+          description: unauthorized
+components:
+  parameters:
+    Authorization:
+      in: header
+      name: access_token
+      description: access token(encrypted) for authorization
+      required: true
+      schema:
+        type: string
+        example: Bearer d65516f5158a060bbf179e2507de6becc680eb47c52a6da7a8c0c0602c144206
+  requestBodies:
+    SignInRequestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+                example: hoge@example.com
+              password:
+                type: string
+                example: 1234567890
+            required:
+              - email
+              - password
+  responses:
+    AccessTokenResponse:
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AccessToken'
+    SignInResponse:
+      description: OK
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SignIn'
+  schemas:
+    AccessToken:
+      type: object
+      properties:
+        access_token:
+          type: string
+          example: a23fbedf7aa97d896368271be48953e2ea13343b872dbf17b5e71a45ccdba3a8
+    SignIn:
+      type: object
+      properties:
+        access_token:
+          type: string
+          example: a23fbedf7aa97d896368271be48953e2ea13343b872dbf17b5e71a45ccdba3a8
+        expires_in:
+          type: integer
+          example: 2592000
+    ValidationFailed:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Validation Failed"
+        error:
+          type: object
+          properties:
+            field:
+              type: string
+              example: "title"
+            code:
+              type: string
+              example: "missing_field"

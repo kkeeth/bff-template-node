@@ -1,0 +1,53 @@
+@startuml
+title sign in sequence
+group check access token
+    Front -> Front: is exist access token and is it valid?
+    note right
+      OK: complete!
+      NG: go to next sequence
+    end note
+end
+
+group Get access token
+    Front -> BFF: GET /get_access_token
+    BFF -> BFF: Generate encrypted token
+    note right
+      by using the followings
+        - SALT (hashed by sha256)
+        - timestamp (yyyymmddhms)
+        - algorithm (aes-256-cbc)
+    end note
+    BFF -> Front: OK: access token(encrypted)
+    BFF -> Front: NG: some error messages(ex: network error)
+end
+
+group Sign-in
+    Front -> BFF: POST /sign_in
+    note right
+      - access token (in header)
+      - email address (in body)
+      - password(in body)
+    end note
+    BFF -> BFF: check access token
+    BFF -> Front: NG: Check token Failure
+    BFF -> API: POST /sign_in
+    note right
+      - access token(in head)
+      - email address (in body)
+      - password(in body)
+    end note
+    API -> BFF: validation error
+    BFF -> Front: NG: validation error messages
+
+    API -> API: create session
+    note right
+        - create sign in session
+          and
+          register session to DB with email
+    end note
+    API -> BFF: no contents
+    BFF -> Front: OK: success message
+    Front -> Front: redirect to home(top) page
+    BFF -> Front: NG: some error messages(ex: network error)
+end
+@enduml
