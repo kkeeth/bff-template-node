@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  api:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    container_name: bff_template_node
+    volumes:
+      - ./:/var/api
+    environment:
+     - API_ENVIRONMENT=develop
+    ports:
+      - "8180:3000"
+    
